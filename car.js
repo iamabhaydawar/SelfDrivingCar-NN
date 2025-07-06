@@ -13,6 +13,10 @@ class Car {
     }
   
     update(canvasWidth, canvasHeight) {
+        this.#move();
+   
+    }
+    #move(canvasWidth, canvasHeight) {
         if(this.controls.forward) {
             this.speed += this.acceleration;
         }
@@ -85,7 +89,6 @@ class Car {
                 this.speed *= 0.5;
             }
         }
-   
     }
     draw(ctx) {
         ctx.save();
@@ -93,7 +96,7 @@ class Car {
         ctx.rotate(-this.angle);
         ctx.beginPath();
         ctx.rect(-this.width/2, -this.height/2, this.width, this.height);
-        ctx.fillStyle = "black";
+        ctx.fillStyle = "red";
         ctx.fill();
         
         ctx.restore();
