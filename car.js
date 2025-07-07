@@ -4,18 +4,18 @@ class Car {
         this.y = y;
         this.width = width;
         this.height = height;
-        this.speed = 0;
+        this.speed = 2;
         this.acceleration = 0.2;
         
-        this.maxSpeed = 5;
-        this.friction = 0.05;
+        this.maxSpeed = 15;
+        this.friction = 0.01;
         this.angle = 0;
         this.sensor = new Sensor(this);
         this.controls = new Controls();
     }
   
-    update(roadBorders, canvasWidth, canvasHeight) {
-        this.#move(canvasWidth, canvasHeight);
+    update(roadBorders) {
+        this.#move();
         this.sensor.update(roadBorders);
     }
 
