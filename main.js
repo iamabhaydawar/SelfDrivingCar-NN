@@ -5,12 +5,18 @@ canvas.height = window.innerHeight; // Fixed height
 const ctx = canvas.getContext("2d");
 
 const road = new Road(canvas.width/2, canvas.width);
-const car = new Car(road.getLaneCenter(1), 100, 30, 50);
+const car = new Car(road.getLaneCenter(1), 100, 30, 50, "KEYS", 3);
+const traffic = [
+    new Car(road.getLaneCenter(1), -100, 30, 50, "DUMMY", 1),
+]
 animate();
 
 function animate() {
-    car.update(road.borders, canvas.width, canvas.height);
-        
+    for(let i = 0; i < traffic.length; i++) {
+        traffic[i].update(road.borders,[]);
+    }
+    car.update(road.borders,traffic);
+  
     // Clear the canvas
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -18,8 +24,11 @@ function animate() {
     ctx.translate(0, -car.y+canvas.height*0.7);
 
     road.draw(ctx);
-    car.draw(ctx);
-    
+    for(let i = 0; i < traffic.length; i++) {
+        traffic[i].draw(ctx,'red');
+    }
+    car.draw(ctx,"blue");
+
     ctx.restore();
 
     requestAnimationFrame(animate);
