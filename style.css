@@ -1,10 +1,10 @@
 body {
     margin: 0;
-    background:rgba(0, 0, 0, 0.329);
+    background:rgba(117, 22, 97, 0.329);
     overflow: hidden;
     text-align: center;
 }
 
 canvas {
-    background:black;
+    background:rgb(129, 117, 117);
 }

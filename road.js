@@ -9,14 +9,11 @@ class Road {
         const infinity = 1000000;
         this.top = -infinity;
         this.bottom = infinity;
-        this.left = x-width/2;
-        this.right = x+width/2;
+        
         this.borders = [
-            [this.left, this.right],
-            [this.right, this.left],
-            [this.left, this.bottom],
-            [this.right, this.bottom],
-        ]
+            [{x: this.left, y: this.top}, {x: this.left, y: this.bottom}],
+            [{x: this.right, y: this.top}, {x: this.right, y: this.bottom}]
+        ];
     }
     getLaneCenter(laneIndex){
         const laneWidth = this.width/this.laneCount;

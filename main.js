@@ -9,7 +9,7 @@ const car = new Car(road.getLaneCenter(1), 100, 30, 50);
 animate();
 
 function animate() {
-    car.update(canvas.width, canvas.height);
+    car.update(road.borders, canvas.width, canvas.height);
         
     // Clear the canvas
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -17,9 +17,10 @@ function animate() {
     ctx.save();
     ctx.translate(0, -car.y+canvas.height*0.7);
 
-    car.draw(ctx);
     road.draw(ctx);
-    ctx.restore(-car.angle);
+    car.draw(ctx);
+    
+    ctx.restore();
 
     requestAnimationFrame(animate);
 }
