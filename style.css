@@ -8,3 +8,6 @@ body {
 canvas {
     background:rgb(129, 117, 117);
 }
+#neural{
+    background: black;
+}

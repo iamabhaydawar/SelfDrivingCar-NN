@@ -1,15 +1,20 @@
 const canvas = document.getElementById("canvas");
+const neural = document.getElementById("neural");
 canvas.width = 300;  // Fixed width
+neural.width = 300;
 canvas.height = window.innerHeight; // Fixed height
+neural.height = window.innerHeight;
 
 const ctx = canvas.getContext("2d");
+const neuralCtx = neural.getContext("2d");
 
 const road = new Road(canvas.width/2, canvas.width);
-const car = new Car(road.getLaneCenter(1), 100, 30, 50, "KEYS", 3);
+const car = new Car(road.getLaneCenter(1), 100, 30, 50, "AI", 3);
 const traffic = [
     new Car(road.getLaneCenter(1), -100, 30, 50, "DUMMY", 1),
 ]
 animate();
+
 
 function animate() {
     for(let i = 0; i < traffic.length; i++) {
@@ -19,6 +24,7 @@ function animate() {
   
     // Clear the canvas
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+    neuralCtx.clearRect(0, 0, neural.width, neural.height);
 
     ctx.save();
     ctx.translate(0, -car.y+canvas.height*0.7);
@@ -30,6 +36,11 @@ function animate() {
     car.draw(ctx,"blue");
 
     ctx.restore();
+
+    // Draw neural network if car has brain
+    if(car.brain) {
+        Visualizer.drawNetwork(neuralCtx, car.brain);
+    }
 
     requestAnimationFrame(animate);
 }
