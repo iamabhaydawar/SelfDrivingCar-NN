@@ -21,11 +21,16 @@ function getIntersection(A, B, C, D){
     return null;
 }
 
-function polygonsIntersect(polygon1, polygon2) {
-    for(let i = 0; i < polygon1.length; i++) {
-        for(let j = 0; j < polygon2.length; j++) {
-            const touch = getIntersection(polygon1[i], polygon1[(i+1)%polygon1.length], polygon2[j], polygon2[(j+1)%polygon2.length]);
-            if(touch) {
+function polysIntersect(poly1, poly2){
+    for(let i=0;i<poly1.length;i++){
+        for(let j=0;j<poly2.length;j++){
+            const touch=getIntersection(
+                poly1[i],
+                poly1[(i+1)%poly1.length],
+                poly2[j],
+                poly2[(j+1)%poly2.length]
+            );
+            if(touch){
                 return true;
             }
         }

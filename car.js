@@ -42,22 +42,14 @@ class Car {
             }
         }
     }
-    #assessDamage(roadBorders,traffic) {
-        for(let i = 0; i < roadBorders.length; i++) {
-            for(let j = 0; j < this.polygon.length; j++) {
-                const touch = getIntersection(
-                    this.polygon[j],
-                    this.polygon[(j+1)%this.polygon.length],
-                    roadBorders[i][0],
-                    roadBorders[i][1]
-                );
-                if(touch) {
-                    return true;
-                }
+    #assessDamage(roadBorders,traffic){
+        for(let i=0;i<roadBorders.length;i++){
+            if(polysIntersect(this.polygon,roadBorders[i])){
+                return true;
             }
         }
         for(let i = 0; i < traffic.length; i++) {
-            if(polygonsIntersect(this.polygon, traffic[i].polygon)) {
+            if(polysIntersect(this.polygon, traffic[i].polygon)) {
                 return true;
             }
         }
@@ -117,7 +109,7 @@ class Car {
         this.y -= Math.cos(this.angle) * this.speed;
     }
 
-    draw(ctx,color) {
+    draw(ctx,color,drawSensor=false) {
         ctx.beginPath();
         ctx.moveTo(this.polygon[0].x, this.polygon[0].y);
         for(let i = 1; i < this.polygon.length; i++) {
@@ -127,7 +119,7 @@ class Car {
         ctx.fill();
         ctx.closePath();
 
-        if(this.sensor){
+        if(this.sensor && drawSensor){
             this.sensor.draw(ctx);
         }
     }
