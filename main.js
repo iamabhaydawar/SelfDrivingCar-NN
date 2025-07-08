@@ -1,6 +1,6 @@
 const canvas = document.getElementById("canvas");
 const neural = document.getElementById("neural");
-canvas.width = 300;  // Fixed width
+canvas.width = 200;  // Fixed width
 neural.width = 300;
 canvas.height = window.innerHeight; // Fixed height
 neural.height = window.innerHeight;
@@ -16,15 +16,14 @@ const traffic = [
 animate();
 
 
-function animate() {
+function animate(time) {
     for(let i = 0; i < traffic.length; i++) {
         traffic[i].update(road.borders,[]);
     }
     car.update(road.borders,traffic);
-  
-    // Clear the canvas
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    neuralCtx.clearRect(0, 0, neural.width, neural.height);
+
+    canvas.height = window.innerHeight;
+    neural.height = window.innerHeight;
 
     ctx.save();
     ctx.translate(0, -car.y+canvas.height*0.7);
@@ -37,10 +36,9 @@ function animate() {
 
     ctx.restore();
 
-    // Draw neural network if car has brain
+    neuralCtx.lineDashOffset = -time/50;
     if(car.brain) {
         Visualizer.drawNetwork(neuralCtx, car.brain);
     }
-
     requestAnimationFrame(animate);
 }
