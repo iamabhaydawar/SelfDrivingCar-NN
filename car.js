@@ -4,11 +4,11 @@ class Car {
         this.y = y;
         this.width = width;
         this.height = height;
-        this.speed = 2;
+        this.speed = 0;
         this.acceleration = 0.2;
         
         this.maxSpeed = maxSpeed;
-        this.friction = 0.01;
+        this.friction = 0.05;
         this.angle = 0;
         this.damaged = false;
         this.useBrain=controlType=="AI";
@@ -35,10 +35,10 @@ class Car {
             const outputs=NeuralNetwork.feedForward(offsets,this.brain);
            
             if(this.useBrain){
-                this.controls.forward=outputs[1];
-                this.controls.left=outputs[0];
-                this.controls.right=outputs[2];
-                this.controls.reverse=outputs[3];
+                this.controls.forward = outputs[0];
+                this.controls.left    = outputs[1];
+                this.controls.right   = outputs[2];
+                this.controls.reverse = outputs[3];
             }
         }
     }
